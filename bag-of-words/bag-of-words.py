@@ -9,8 +9,10 @@ def bag_of_words_vector(tokens, vocab):
     bow = np.zeros(len(vocab), dtype=int)
     count = Counter(tokens)
 
-    for word in tokens:
+    vocab_dict = { y: x for x , y in enumerate(vocab)}
+    
+    for word in count.keys():
         if word in vocab:
-            bow[vocab.index(word)] = count[word]            
+            bow[vocab_dict[word]] = count[word]            
         
     return bow
