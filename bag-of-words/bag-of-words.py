@@ -11,8 +11,8 @@ def bag_of_words_vector(tokens, vocab):
 
     vocab_dict = { y: x for x , y in enumerate(vocab)}
     
-    for word in count.keys():
-        if word in vocab_dict.keys():
+    for word in count:
+        if word in vocab_dict:
             bow[vocab_dict[word]] = count[word]            
         
     return bow
