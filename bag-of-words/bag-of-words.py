@@ -10,7 +10,6 @@ def bag_of_words_vector(tokens, vocab):
     count = Counter(tokens)
 
     for id, word in enumerate(vocab):
-        print(word)
         if word in count.keys():
             bow[id] = count[word]            
         
