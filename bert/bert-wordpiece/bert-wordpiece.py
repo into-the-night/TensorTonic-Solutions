@@ -21,33 +21,31 @@ class WordPieceTokenizer:
         return tokens
     
     def _tokenize_word(self, word: str) -> List[str]:
-        """
-        Tokenize a single word into subwords.
-        """
         if len(word) > self.max_word_len:
             return [self.unk_token]
-            
+    
         tokens = []
-        token = ""
-        i = len(word)
-        j = 0
-
-        while True:
-            if j >= len(word):
-                break
-
-            t = word[:i] if j == 0 else "##"+word[j:i]
-
-            if t in self.vocab:
-                tokens.append(t)
-                j = i
-                i = len(word)
-                
-            else:
-                if i >= j:
-                    i -= 1
-                else:
-                    tokens = [self.unk_token]
+        start = 0
+    
+        while start < len(word):
+            end = len(word)
+            cur_substr = None
+    
+            while start < end:
+                substr = word[start:end]
+                if start > 0:
+                    substr = "##" + substr
+    
+                if substr in self.vocab:
+                    cur_substr = substr
                     break
-            
+    
+                end -= 1
+    
+            if cur_substr is None:
+                return [self.unk_token]
+    
+            tokens.append(cur_substr)
+            start = end
+    
         return tokens
